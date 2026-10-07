@@ -5,51 +5,68 @@ import java.time.LocalDateTime;
 
 public class Ticket {
 
-    private boolean active;
-    private LocalDateTime checkIn;
-    private Vehicle vehicle;
+	private boolean active;
+	private LocalDateTime checkIn;
+	private LocalDateTime checkOut;
+	private double fee;
 
-    public Ticket(Vehicle vehicle) {
-        this.vehicle = vehicle;
-        this.checkIn = LocalDateTime.now();
-        this.active = true;
-    }
+	private Vehicle vehicle;
 
-    public double calculateFee(LocalDateTime checkOut) {
-        long minutes = Duration.between(this.checkIn, checkOut).toMinutes();
-        long hours = (long) Math.ceil(minutes / 60.0);
-        if (hours < 1) {
-            hours = 1;
-        }
+	public Ticket(Vehicle vehicle) {
+		this.vehicle = vehicle;
+		this.checkIn = LocalDateTime.now();
+		this.active = true;
+	}
 
-        double amount = 10.00;
-        if (hours > 1) {
-            amount += (hours - 1) * 5.00;
-        }
-        return amount;
-    }
+	public double calculateFee(LocalDateTime checkOut) {
+		long minutes = Duration.between(this.checkIn, checkOut).toMinutes();
+		long hours = (long) Math.ceil(minutes / 60.0);
+		if (hours < 1) {
+			hours = 1;
+		}
 
-    public boolean isActive() {
-        return active;
-    }
+		double amount = 10.00;
+		if (hours > 1) {
+			amount += (hours - 1) * 5.00;
+		}
+		return amount;
+	}
 
-    public void setActive(boolean active) {
-        this.active = active;
-    }
+	public void processCheckout(LocalDateTime checkOut) {
+		this.fee = calculateFee(checkOut);
+		this.checkOut = checkOut;
+		this.active = false;
+	}
 
-    public Vehicle getVehicle() {
-        return vehicle;
-    }
+	public double getFee() {
+		return fee;
+	}
 
-    public void setVehicle(Vehicle vehicle) {
-        this.vehicle = vehicle;
-    }
+	public LocalDateTime getCheckOut() {
+		return checkOut;
+	}
 
-    public LocalDateTime getCheckIn() {
-        return checkIn;
-    }
+	public boolean isActive() {
+		return active;
+	}
 
-    public void setCheckIn(LocalDateTime checkIn) {
-        this.checkIn = checkIn;
-    }
+	public void setActive(boolean active) {
+		this.active = active;
+	}
+
+	public Vehicle getVehicle() {
+		return vehicle;
+	}
+
+	public void setVehicle(Vehicle vehicle) {
+		this.vehicle = vehicle;
+	}
+
+	public LocalDateTime getCheckIn() {
+		return checkIn;
+	}
+
+	public void setCheckIn(LocalDateTime checkIn) {
+		this.checkIn = checkIn;
+	}
 }

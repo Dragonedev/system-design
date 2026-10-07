@@ -32,4 +32,21 @@ public class Parking {
     public double getInvoice() {
         return invoice;
     }
+    
+    public int getOccupiedSpots() {
+    	return activeTickets.size();
+    }
+    
+    public int getFreeSpots() {
+    	return capacity - activeTickets.size();
+    }
+    
+    public void printStatus() {
+        System.out.println("====== STATUS DO ESTACIONAMENTO ======");
+        System.out.println("Capacidade Total : " + capacity);
+        System.out.println("Vagas Ocupadas   : " + getOccupiedSpots());
+        System.out.println("Vagas Livres     : " + getFreeSpots());
+        System.out.printf("Faturamento Total : R$ %.1f%n", invoice);
+        System.out.println("======================================");
+    }
 }

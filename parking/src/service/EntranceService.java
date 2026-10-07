@@ -8,62 +8,71 @@ import entities.Vehicle;
 
 public class EntranceService {
 
-    private Parking parking;
+	private Parking parking;
 
-    public EntranceService(Parking parking) {
-        this.parking = parking;
-    }
+	public EntranceService(Parking parking) {
+		this.parking = parking;
+	}
 
-    public void vehicleEntrance(Vehicle vehicle) {
+	public void vehicleEntrance(Vehicle vehicle) {
+		// Verificar disponibilidade de vagas
+		if (parking.getFreeSpots() == 0) {
+			System.out.println("Sem vagas disponíveis.");
+			return;
+		}
 
-        // Verificar capacidade máxima
-        if (parking.getActiveTickets().size() >= parking.getCapacity()) {
-            System.out.println("Capacidade máxima já atingida.");
-            return;
-        }
+		// Verificar duplicidade reaproveitando o método auxiliar
+		if (findActiveTicket(vehicle.getPlate()) != null) {
+			System.out.println("Ticket ainda ativo.");
+			return;
+		}
 
-        // Verificar duplicidade
-        for (Ticket t : parking.getActiveTickets()) {
-            if (t.getVehicle().getPlate().equalsIgnoreCase(vehicle.getPlate())) {
-                if (t.isActive()) {
-                    System.out.println("Ticket ainda ativo.");
-                    return;
-                }
-            }
-        }
+		// Criar Ticket e adicionar no estacionamento
+		Ticket ticket = new Ticket(vehicle);
+		parking.getActiveTickets().add(ticket);
+		System.out.println("Veículo adicionado ao estacionamento.");
+	}
 
-        // Criar Ticket e adicionar no estacionamento
-        Ticket ticket = new Ticket(vehicle);
-        parking.getActiveTickets().add(ticket);
-        System.out.println("Veículo adicionado ao estacionamento.");
-    }
+	// Apenas consulta o valor estimado sem alterar o estado (Query)
+	public double estimateFee(String plate, LocalDateTime checkOut) {
+		Ticket ticket = findActiveTicket(plate);
+		if (ticket == null) {
+			System.out.println("Veículo não encontrado ou ticket inativo.");
+			return 0.0;
+		}
+		return ticket.calculateFee(checkOut);
+	}
 
-    public void vehicleExit(String plate) {
-        Ticket ticket = null;
+	// Saída rápida usando o horário atual
+	public void vehicleExit(String plate) {
+		vehicleExit(plate, LocalDateTime.now());
+	}
 
-        // Buscar ticket
-        for (Ticket t : parking.getActiveTickets()) {
-            if (t.getVehicle().getPlate().equalsIgnoreCase(plate) && t.isActive()) {
-                ticket = t;
-                break;
-            }
-        }
+	// Saída processando o checkout com horário informado (Command)
+	public void vehicleExit(String plate, LocalDateTime checkOut) {
+		Ticket ticket = findActiveTicket(plate);
+		if (ticket == null) {
+			System.out.println("Veículo não encontrado ou ticket inativo.");
+			return;
+		}
 
-        // Caso não encontrado
-        if (ticket == null) {
-            System.out.println("Veículo não encontrado ou ticket inativo.");
-            return;
-        }
+		// Delega o encerramento dos dados ao próprio Ticket
+		ticket.processCheckout(checkOut);
 
-        // Setar Check-out e calcular valor
-        LocalDateTime checkOut = LocalDateTime.now();
-        double amount = ticket.calculateFee(checkOut);
+		// Atualiza faturamento e remove das vagas ativas
+		parking.addInvoice(ticket.getFee());
+		parking.getActiveTickets().remove(ticket);
 
-        // Adicionar no faturamento, desativar ticket e remover do estacionamento
-        parking.addInvoice(amount);
-        ticket.setActive(false);
-        parking.getActiveTickets().remove(ticket);
+		System.out.printf("Saída realizada! Total a pagar: R$ %.2f%n", ticket.getFee());
+	}
 
-        System.out.printf("Saída realizada! Total a pagar: R$ %.2f%n", amount);
-    }
+	// Método auxiliar reutilizado por entrada, consulta e saída
+	private Ticket findActiveTicket(String plate) {
+		for (Ticket t : parking.getActiveTickets()) {
+			if (t.getVehicle().getPlate().equalsIgnoreCase(plate) && t.isActive()) {
+				return t;
+			}
+		}
+		return null;
+	}
 }
