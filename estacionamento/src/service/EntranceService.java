@@ -1,7 +1,7 @@
 package service;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.time.Duration;
+import java.time.LocalDateTime;
 
 import entities.Estacionamento;
 import entities.Ticket;
@@ -38,25 +38,30 @@ public class EntranceService {
 	}
 
 	public void vehicleExit(String plate) {
-		Vehicle vehicle = null;
-		boolean found = false;
-		for (Vehicle v : vehicles) {
-			if (v.getPlate().equals(plate)) {
-				found = true;
-				vehicle = v;
-				if (vehicle.getTicket().getPayment().getPay()) {
-					vehicle.getTicket().setActive(false);
-					System.out.println("Liberado");
-					vehicles.remove(vehicle);
-				} else {
-					System.out.println("Pagamento pendente");
-				}
+		Ticket ticketEncontrado = null;
 
+		// 1. Busca pelo ticket ativo
+		for (Ticket t : estacionamento.getTickesAtivos()) {
+			if (t.getVehicle().getPlate().equalsIgnoreCase(plate) && t.isActive()) {
+				ticketEncontrado = t;
+				break; // Parar a busca pois já encontrou
 			}
+		}
 
+		// 2. Validação se encontrou
+		if (ticketEncontrado == null) {
+			System.out.println("Veículo não encontrado ou ticket inativo.");
+			return;
 		}
-		if (!found) {
-			System.out.println("Placa não encontrada.");
-		}
+
+		// 3. Processar a saída
+		LocalDateTime horaSaida = LocalDateTime.now();
+		double amount = ticketEncontrado.calcularValor(horaSaida);
+
+		estacionamento.adcFaturamento(amount);
+		ticketEncontrado.setActive(false);
+		estacionamento.getTickesAtivos().remove(ticketEncontrado);
+
+		System.out.println("Saída realizada! Total a pagar: R$ " + amount);
 	}
 }

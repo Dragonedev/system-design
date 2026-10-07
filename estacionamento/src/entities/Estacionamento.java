@@ -4,18 +4,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Estacionamento {
-	private int capacidade;
+	private Integer capacidade;
 	private List<Ticket> tickesAtivos = new ArrayList<>();
+	private Double faturamento;
 
 	public Estacionamento(int capacidade) {
 		this.capacidade = capacidade;
 	}
 
-	public int getCapacidade() {
+	public void adcFaturamento(double amount) {
+		faturamento += amount;
+	}
+
+	public Integer getCapacidade() {
 		return capacidade;
 	}
 
-	public void setCapacidade(int capacidade) {
+	public void setCapacidade(Integer capacidade) {
 		this.capacidade = capacidade;
 	}
 
@@ -26,11 +31,9 @@ public class Estacionamento {
 	public void setTickesAtivos(List<Ticket> tickesAtivos) {
 		this.tickesAtivos = tickesAtivos;
 	}
+	
+	public Double getFaturamento() {
+		return faturamento;
+	}
 
-
-	
-	
-	
-	
-	
 }
