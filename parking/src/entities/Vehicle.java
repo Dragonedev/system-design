@@ -2,17 +2,14 @@ package entities;
 
 public class Vehicle {
 
-    private String plate;
+	private String plate;
 
-    public Vehicle(String plate) {
-        this.plate = plate;
-    }
+	public Vehicle(String plate) {
+		this.plate = plate;
+	}
 
-    public String getPlate() {
-        return plate;
-    }
+	public String getPlate() {
+		return plate;
+	}
 
-    public void setPlate(String plate) {
-        this.plate = plate;
-    }
 }

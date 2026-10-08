@@ -28,6 +28,7 @@ public class Ticket {
 		double amount = 10.00;
 		if (hours > 1) {
 			amount += (hours - 1) * 5.00;
+			
 		}
 		return amount;
 	}
@@ -50,23 +51,14 @@ public class Ticket {
 		return active;
 	}
 
-	public void setActive(boolean active) {
-		this.active = active;
-	}
 
 	public Vehicle getVehicle() {
 		return vehicle;
 	}
 
-	public void setVehicle(Vehicle vehicle) {
-		this.vehicle = vehicle;
-	}
 
 	public LocalDateTime getCheckIn() {
 		return checkIn;
 	}
 
-	public void setCheckIn(LocalDateTime checkIn) {
-		this.checkIn = checkIn;
-	}
 }
