@@ -1,5 +1,6 @@
-package entities;
+package entities.parking;
 
+import entities.vehicle.Vehicle;
 import exceptions.InvalidParkingOperationException;
 
 public class ParkingSpace {

@@ -1,14 +1,22 @@
-package entities;
+package entities.parking;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ParkingLot {
 
-	private String name;
-	private List<ParkingSpace> spaces;
+	private final String name;
+	private final List<ParkingSpace> spaces;
 
 	public ParkingLot(String name, int capacity) {
+		if (name == null || name.isBlank()) {
+			throw new IllegalArgumentException("Parking lot name cannot be empty.");
+		}
+
+		if (capacity < 0) {
+			throw new IllegalArgumentException("Capacity cannot be negative.");
+		}
+
 		this.name = name;
 		this.spaces = new ArrayList<>();
 
@@ -35,5 +43,9 @@ public class ParkingLot {
 
 	public ParkingSpace findSpaceById(int id) {
 		return spaces.stream().filter(space -> space.getId() == id).findFirst().orElse(null);
+	}
+
+	public ParkingSpace findAvailableSpace() {
+		return spaces.stream().filter(ParkingSpace::isAvailable).findFirst().orElse(null);
 	}
 }

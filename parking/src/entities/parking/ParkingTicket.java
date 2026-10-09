@@ -1,9 +1,10 @@
-package entities;
+package entities.parking;
 
 import java.math.BigDecimal;
 import java.time.Duration;
 import java.time.LocalDateTime;
 
+import entities.vehicle.Vehicle;
 import exceptions.InvalidParkingOperationException;
 
 public class ParkingTicket {

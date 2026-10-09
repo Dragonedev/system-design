@@ -1,9 +1,10 @@
-package entities;
+package entities.payment;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 import entities.enums.PaymentStatus;
+import entities.parking.ParkingTicket;
 import exceptions.InvalidParkingOperationException;
 
 public class Payment {

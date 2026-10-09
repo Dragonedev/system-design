@@ -1,6 +1,5 @@
 package entities.vehicle;
 
-import entities.Vehicle;
 import entities.enums.VehicleType;
 
 public class Motorcycle extends Vehicle {
