@@ -8,9 +8,9 @@ import exceptions.InvalidParkingOperationException;
 
 public class ParkingTicket {
 	private final Long id;
-	private Vehicle vehicle;
-	private ParkingSpace space;
-	private LocalDateTime entryTime;
+	private final Vehicle vehicle;
+	private final ParkingSpace space;
+	private final LocalDateTime entryTime;
 	private LocalDateTime exitTime;
 	private BigDecimal fee;
 
@@ -23,23 +23,17 @@ public class ParkingTicket {
 
 	public void close(LocalDateTime exitTime, BigDecimal fee) {
 		if (!isOpen()) {
-			throw new InvalidParkingOperationException(
-					"Parking ticket is already closed."
-					);
+			throw new InvalidParkingOperationException("Parking ticket is already closed.");
 		}
-		
-		if(exitTime == null || fee == null || fee.signum() < 0) {
-			throw new InvalidParkingOperationException(
-					"Invalid exit time or fee"
-					);
+
+		if (exitTime == null || fee == null || fee.signum() < 0) {
+			throw new InvalidParkingOperationException("Invalid exit time or fee");
 		}
-		
-		if(exitTime.isBefore(entryTime)) {
-			throw new InvalidParkingOperationException(
-					"Exit time cannot be before entry time"
-					);
+
+		if (exitTime.isBefore(entryTime)) {
+			throw new InvalidParkingOperationException("Exit time cannot be before entry time");
 		}
-		
+
 		this.exitTime = exitTime;
 		this.fee = fee;
 	}
@@ -49,10 +43,8 @@ public class ParkingTicket {
 	}
 
 	public Duration getDuration() {
-		LocalDateTime endTime = isOpen()
-				? LocalDateTime.now()
-				: exitTime;
-		
+		LocalDateTime endTime = isOpen() ? LocalDateTime.now() : exitTime;
+
 		return Duration.between(entryTime, endTime);
 	}
 

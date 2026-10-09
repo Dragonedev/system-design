@@ -26,21 +26,14 @@ public class ParkingLot {
 	}
 
 	public List<ParkingSpace> getAvailableSpots() {
-		return spaces.stream()
-				.filter(ParkingSpace::isAvailable)
-				.toList();
+		return spaces.stream().filter(ParkingSpace::isAvailable).toList();
 	}
-	
+
 	public int getAvailableSpaceCount() {
-		return (int) spaces.stream()
-				.filter(ParkingSpace::isAvailable)
-				.count();
+		return (int) spaces.stream().filter(ParkingSpace::isAvailable).count();
 	}
-	
+
 	public ParkingSpace findSpaceById(int id) {
-		return spaces.stream()
-				.filter(space -> space.getId() == id)
-				.findFirst()
-				.orElse(null);
+		return spaces.stream().filter(space -> space.getId() == id).findFirst().orElse(null);
 	}
 }
