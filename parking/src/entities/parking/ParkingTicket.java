@@ -3,6 +3,7 @@ package entities.parking;
 import java.math.BigDecimal;
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import entities.vehicle.Vehicle;
 import exceptions.InvalidParkingOperationException;
@@ -14,6 +15,8 @@ public class ParkingTicket {
 	private final LocalDateTime entryTime;
 	private LocalDateTime exitTime;
 	private BigDecimal fee;
+
+	private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
 
 	public ParkingTicket(Long id, Vehicle vehicle, ParkingSpace space, LocalDateTime entryTime) {
 		this.id = id;
@@ -73,4 +76,20 @@ public class ParkingTicket {
 		return fee;
 	}
 
+	@Override
+	public String toString() {
+		return "[ParkingTicket]" + "\n | id: " + id + "\n | vehicle: " + vehicle + "\n | space: " + space.getId()
+				+ "\n | entryTime: " + entryTime.format(DATE_FORMATTER) + "\n | exitTime: "
+				+ (exitTime == null ? "N/A" : exitTime.format(DATE_FORMATTER)) + "\n | duration: "
+				+ formatDuration(getDuration()) + "\n | fee: R$ " + fee + "\n | status: "
+				+ (isOpen() ? "OPEN" : "CLOSED") + "\n";
+	}
+
+	private String formatDuration(Duration duration) {
+		long hours = duration.toHours();
+		long minutes = duration.toMinutesPart();
+		long seconds = duration.toSecondsPart();
+
+		return String.format("%02dh %02dmin %02ds", hours, minutes, seconds);
+	}
 }

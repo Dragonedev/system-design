@@ -51,4 +51,12 @@ public class ParkingSpace {
 
 		return removedVehicle;
 	}
+	
+	@Override
+	public String toString() {
+	    return "ParkingSpace" +
+	            "\nid: " + id +
+	            "\n | vehicle: " + vehicle +
+				"\n | available: " + isAvailable() + "\n";
+	}
 }

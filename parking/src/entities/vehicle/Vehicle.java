@@ -30,7 +30,10 @@ public abstract class Vehicle {
 
 	@Override
 	public String toString() {
-		return "Vehicle [plate=" + plate + ", brand=" + brand + ", model=" + model + "]";
+	    return "Vehicle" +
+	            " | plate: " + plate +
+	            " | brand: " + brand +
+	            " | model: " + model;
 	}
 
 }
