@@ -1,11 +1,13 @@
 package entities;
 
+import exceptions.InvalidParkingOperationException;
+
 public class ParkingSpace {
 
-	private int id;
+	private final int id;
 	private Vehicle vehicle;
 
-	ParkingSpace(int id) {
+	public ParkingSpace(int id) {
 		this.id = id;
 	}
 
@@ -14,14 +16,24 @@ public class ParkingSpace {
 	}
 
 	public void parkVehicle(Vehicle vehicle) {
-		if (isAvailable()) {
-			this.vehicle = vehicle;
+		if (!isAvailable()) {
+			throw new InvalidParkingOperationException("Parking space is already occupied.");
 		}
+
+		if (vehicle == null) {
+			throw new InvalidParkingOperationException("Vehicle cannot be null.");
+		}
+
+		this.vehicle = vehicle;
 	}
 
 	public Vehicle removeVehicle() {
-		vehicle = null;
-		return vehicle;
+		if (isAvailable()) {
+			throw new InvalidParkingOperationException("Parking space is already empty.");
+		}
+
+		Vehicle removedVehicle = vehicle;
+		return removedVehicle;
 	}
 
 	public int getId() {

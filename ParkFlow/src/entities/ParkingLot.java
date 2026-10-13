@@ -7,10 +7,11 @@ public class ParkingLot {
 
 	private String name;
 	private int capacity;
-	List<ParkingSpace> spaces;
+	private List<ParkingSpace> spaces;
 
 	public ParkingLot(String name, int capacity) {
 		this.name = name;
+		this.capacity = capacity;
 		this.spaces = new ArrayList<>();
 
 		for (int i = 1; i <= capacity; i++) {
@@ -29,7 +30,9 @@ public class ParkingLot {
 
 	public ParkingSpace findSpaceByVehicle(String plate) {
 		for (ParkingSpace ps : spaces) {
-			if (ps.getVehicle().getPlate().equals(plate)) {
+			Vehicle vehicle = ps.getVehicle();
+
+			if (vehicle != null && vehicle.getPlate().equals(plate)) {
 				return ps;
 			}
 		}
@@ -41,13 +44,13 @@ public class ParkingLot {
 	}
 
 	public int getOccupiedSpaces() {
-		int i = 0;
+		int count = 0;
 		for (ParkingSpace ps : spaces) {
 			if (!ps.isAvailable()) {
-				i++;
+				count++;
 			}
 		}
-		return i;
+		return count;
 	}
 
 	public int getAvailableSpaces() {
