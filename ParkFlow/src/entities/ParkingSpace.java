@@ -13,13 +13,15 @@ public class ParkingSpace {
 		return vehicle == null;
 	}
 
-	public void parkVehicle() {
-		//Ocupar vaga caso disponível
+	public void parkVehicle(Vehicle vehicle) {
+		if (isAvailable()) {
+			this.vehicle = vehicle;
+		}
 	}
 
 	public Vehicle removeVehicle() {
-		// Liberar vaga e retornar o veículo
-		return null;
+		vehicle = null;
+		return vehicle;
 	}
 
 	public int getId() {
