@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import entities.ParkingLot;
@@ -82,4 +83,9 @@ public class ParkingService {
 	public int getOccupancy() {
 		return parkingLot.getOccupiedSpaces();
 	}
+
+	public List<ParkingTicket> getTickets() {
+		return Collections.unmodifiableList(tickets);
+	}
+
 }

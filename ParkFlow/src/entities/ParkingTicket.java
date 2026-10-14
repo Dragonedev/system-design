@@ -3,6 +3,7 @@ package entities;
 import java.math.BigDecimal;
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import entities.enums.TicketStatus;
 import exceptions.InvalidParkingOperationException;
@@ -22,6 +23,7 @@ public class ParkingTicket {
 		this.vehicle = vehicle;
 		this.space = space;
 		this.entryTime = entryTime;
+		this.status = TicketStatus.ACTIVE;
 	}
 
 	public void close(LocalDateTime exitTime, BigDecimal fee) {
@@ -78,6 +80,35 @@ public class ParkingTicket {
 
 	public long getId() {
 		return id;
+	}
+
+	@Override
+	public String toString() {
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+
+		String formattedEntry = entryTime.format(formatter);
+
+		String formattedExit = exitTime != null ? exitTime.format(formatter) : "Not exited";
+
+		Duration duration = getDuration();
+
+		String formattedDuration = String.format("%02dh %02dmin %02ds", duration.toHours(), duration.toMinutesPart(),
+				duration.toSecondsPart());
+
+		return String.format("""
+				═══════════════ PARKING TICKET ═══════════════
+				Ticket ID:  %d
+				Vehicle:    %s %s
+				Plate:      %s
+				Space:      %d
+				Entry:      %s
+				Exit:       %s
+				Duration:   %s
+				Fee:        R$ %s
+				Status:     %s
+				══════════════════════════════════════════════
+				""", id, vehicle.getBrand(), vehicle.getModel(), vehicle.getPlate(), space.getId(), formattedEntry,
+				formattedExit, formattedDuration, fee != null ? fee.toPlainString() : "Pending", status);
 	}
 
 }
