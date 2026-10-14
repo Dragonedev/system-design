@@ -47,11 +47,9 @@ public class ParkingTicket {
 	}
 
 	public Duration getDuration() {
-		LocalDateTime endTime = (exitTime == null)
-                ? LocalDateTime.now()
-                : exitTime;
+		LocalDateTime endTime = (exitTime == null) ? LocalDateTime.now() : exitTime;
 
-        return Duration.between(entryTime, endTime);
+		return Duration.between(entryTime, endTime);
 	}
 
 	public Vehicle getVehicle() {
@@ -76,6 +74,10 @@ public class ParkingTicket {
 
 	public TicketStatus getStatus() {
 		return status;
+	}
+
+	public long getId() {
+		return id;
 	}
 
 }
