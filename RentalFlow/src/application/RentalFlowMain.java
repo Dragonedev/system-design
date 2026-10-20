@@ -4,7 +4,6 @@ package application;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-import entities.Customer;
 import entities.Rental;
 import entities.Vehicle;
 import service.CustomerService;
@@ -21,16 +20,17 @@ public class RentalFlowMain {
 		RentalService rentalService = new RentalService(calculator, customerService);
 
 		// Register vehicles
-		rentalService.registerVehicle(new Vehicle("ABC-798", "Toyota", "Supra", 1000.00));
+		rentalService.registerVehicle(new Vehicle("ABC-798", "Toyota", "Supra", 1000.00, new BigDecimal("2500.00")));
 
-		rentalService.registerVehicle(new Vehicle("CDE-567", "Toyota", "Corolla", 900.00));
+		rentalService.registerVehicle(new Vehicle("CDE-567", "Toyota", "Corolla", 900.00, new BigDecimal("600.00")));
 
-		rentalService.registerVehicle(new Vehicle("FGH-123", "Toyota", "Corolla Cross", 1000.00));
+		rentalService
+				.registerVehicle(new Vehicle("FGH-123", "Toyota", "Corolla Cross", 1000.00, new BigDecimal("800.00")));
 
-		rentalService.registerVehicle(new Vehicle("IJK-456", "Toyota", "Yaris", 500.00));
+		rentalService.registerVehicle(new Vehicle("IJK-456", "Toyota", "Yaris", 500.00, new BigDecimal("600.00")));
 
 		// Register customer
-		customerService.registerCustomer(new Customer("Eduardo Dragone", "10074843", "908766"));
+		customerService.registerCustomer("Eduardo Dragone", "10074843", "908766");
 
 		// Register rental
 		Rental rental = rentalService.registerRental("ABC-798", "10074843", LocalDate.now(),

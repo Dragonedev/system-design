@@ -1,6 +1,7 @@
 
 package entities;
 
+import java.math.BigDecimal;
 import java.util.Objects;
 
 import entities.enums.VehicleStatus;
@@ -11,9 +12,10 @@ public class Vehicle {
 	private final String brand;
 	private final String model;
 	private final Double mileage;
+	private final BigDecimal dailyRate;
 	private VehicleStatus vehicleStatus;
 
-	public Vehicle(String licensePlate, String brand, String model, Double mileage) {
+	public Vehicle(String licensePlate, String brand, String model, Double mileage, BigDecimal dailyRate) {
 		if (licensePlate == null || licensePlate.isBlank()) {
 			throw new IllegalArgumentException("License plate is required.");
 		}
@@ -26,6 +28,7 @@ public class Vehicle {
 		this.brand = Objects.requireNonNull(brand);
 		this.model = Objects.requireNonNull(model);
 		this.mileage = mileage;
+		this.dailyRate = dailyRate;
 		this.vehicleStatus = VehicleStatus.AVAILABLE;
 	}
 
@@ -47,6 +50,10 @@ public class Vehicle {
 
 	public Double getMileage() {
 		return mileage;
+	}
+
+	public BigDecimal getDailyRate() {
+		return dailyRate;
 	}
 
 	public VehicleStatus getVehicleStatus() {

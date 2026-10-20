@@ -92,9 +92,12 @@ public class RentalService {
 		}
 
 		BigDecimal totalAmount = rentalCalculator.calculateTotalAmount(rental.getPickupDate(),
-				rental.getExpectedReturnDate(), actualReturnDate, rental.getDailyRate(), rental.getFine());
+				rental.getExpectedReturnDate(), actualReturnDate, rental.getVehicle());
 
-		rental.closeLoan(actualReturnDate);
+		BigDecimal fineAmount = rentalCalculator.calculateTotalFine(rental.getPickupDate(),
+				rental.getExpectedReturnDate(), actualReturnDate, rental.getVehicle());
+
+		rental.closeLoan(actualReturnDate, totalAmount, fineAmount);
 		rental.getVehicle().updateStatus(VehicleStatus.AVAILABLE);
 
 		return totalAmount;

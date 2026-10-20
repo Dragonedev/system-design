@@ -10,28 +10,28 @@ public class CustomerService {
 
 	private final List<Customer> customers;
 
+	private long nextCustomerId = 1;
+
 	public CustomerService() {
 		this.customers = new ArrayList<>();
 	}
 
-	public void registerCustomer(Customer customer) {
-		if (customer == null) {
-			throw new InvalidCustomerException("Customer cannot be null");
-		}
+	public void registerCustomer(String name, String cpf, String cnh) {
 
-		if (customer.getName() == null || customer.getName().isBlank()) {
+		if (name == null || name.isBlank()) {
 			throw new InvalidCustomerException("Customer name cannot be blank");
 		}
 
-		if (customer.getCpf() == null || customer.getCpf().isBlank()) {
+		if (cpf == null || cpf.isBlank()) {
 			throw new InvalidCustomerException("Customer CPF cannot be blank");
 		}
 
-		if (customer.getCnh() == null || customer.getCnh().isBlank()) {
+		if (cnh == null || cnh.isBlank()) {
 			throw new InvalidCustomerException("Customer CNH cannot be blank");
 		}
 
-		customers.add(customer);
+		Customer savedCustomer = new Customer(nextCustomerId++, name, cpf, cnh);
+		customers.add(savedCustomer);
 	}
 
 	public Customer findCustomerByCpf(String cpf) {
