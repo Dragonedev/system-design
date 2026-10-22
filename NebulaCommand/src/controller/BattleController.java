@@ -60,7 +60,17 @@ public class BattleController {
 
 		return status;
 	}
-	
-	
+
+	public Fleet getPlayerFleet() {
+		return playerFleet;
+	}
+
+	public Fleet getEnemyFleet() {
+		return enemyFleet;
+	}
+
+	public BattleStatus getStatus() {
+		return status;
+	}
 
 }
