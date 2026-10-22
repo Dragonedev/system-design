@@ -9,6 +9,10 @@ public class PlasmaWeapon implements Weapon {
 		this.energyCost = 20;
 	}
 
+	public String getName() {
+		return "Plasma";
+	}
+
 	public Integer getDamage() {
 		return damage;
 	}
@@ -19,10 +23,6 @@ public class PlasmaWeapon implements Weapon {
 
 	public Integer calculateDamage() {
 		return damage;
-	}
-
-	public String getName() {
-		return "Plasma";
 	}
 
 }

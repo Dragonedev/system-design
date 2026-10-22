@@ -8,6 +8,10 @@ public class LaserWeapon implements Weapon {
 		this.damage = 25;
 		this.energyCost = 10;
 	}
+	
+	public String getName() {
+		return "Laser";
+	}
 
 	public Integer getDamage() {
 		return damage;
@@ -21,8 +25,6 @@ public class LaserWeapon implements Weapon {
 		return damage;
 	}
 
-	public String getName() {
-		return "Laser";
-	}
+
 
 }
