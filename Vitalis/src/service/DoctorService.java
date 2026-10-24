@@ -1,0 +1,46 @@
+package service;
+
+import entities.Doctor;
+import entities.Hospital;
+import exception.InvalidDoctorException;
+import exception.InvalidPatientException;
+import repository.DoctorRepository;
+
+public class DoctorService {
+
+	private final Hospital hospital;
+	private final DoctorRepository doctorRepository;
+
+	public DoctorService(Hospital hospital, DoctorRepository doctorRepository) {
+		this.hospital = hospital;
+		this.doctorRepository = doctorRepository;
+	}
+
+	public void createDoctor(Doctor doctor) {
+		if (doctor == null) {
+			throw new InvalidPatientException("Patient cannot be null");
+		}
+
+		if (doctor.getName() == null || doctor.getName().isBlank()) {
+			throw new InvalidDoctorException("Name cannot be blank");
+		}
+
+		if (doctor.getDoctorCode() == null || doctor.getDoctorCode().isBlank()) {
+			throw new InvalidPatientException("CPF cannot be blank");
+		}
+
+		if (doctor.getSpecialty() == null || doctor.getSpecialty().isBlank()) {
+			throw new InvalidPatientException("Protocol cannot be blank");
+		}
+
+		if (doctor.getMedicalTrainingLevel() != null) {
+			throw new InvalidPatientException("Severity level is already set");
+		}
+
+		Doctor savedDoctor = new Doctor(doctor.getName(), doctor.getDoctorCode(), doctor.getSpecialty(),
+				doctor.getMedicalTrainingLevel());
+
+		hospital.addDoctor(savedDoctor);
+	}
+
+}
