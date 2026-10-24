@@ -42,4 +42,8 @@ public class DoctorService {
 		hospital.addDoctor(savedDoctor);
 	}
 
+	public void findAll() {
+		doctorRepository.findAll();
+	}
+
 }

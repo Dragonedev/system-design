@@ -11,6 +11,12 @@ public class DoctorRepository {
 		this.hospital = hospital;
 	}
 
+	public void findAll() {
+		for (Doctor d : hospital.getDoctors()) {
+			System.out.println(d);
+		}
+	}
+
 	public Doctor findDoctorByDoctorCode(String doctorCode) {
 		for (Doctor d : hospital.getDoctors()) {
 			if (d.getDoctorCode().equals(doctorCode)) {

@@ -11,6 +11,12 @@ public class PatientRepository {
 		this.hospital = hospital;
 	}
 
+	public void findAll() {
+		for (Patient p : hospital.getPatients()) {
+			System.out.println(p);
+		}
+	}
+
 	public Patient findPatientByCpf(String cpf) {
 		for (Patient p : hospital.getPatients()) {
 			if (p.getCpf().equals(cpf)) {

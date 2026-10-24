@@ -60,4 +60,8 @@ public class PatientService {
 
 		patient.setSeverityLevel(severityLevel);
 	}
+
+	public void findAll() {
+		patientRepository.findAll();
+	}
 }
