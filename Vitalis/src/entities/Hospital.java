@@ -59,4 +59,6 @@ public class Hospital {
 	public void addMedicalRecord(MedicalRecord medicalRecord) {
 		medicalRecords.add(medicalRecord);
 	}
+	
+	
 }

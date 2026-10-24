@@ -17,4 +17,11 @@ public class Room {
 	public String getRoom() {
 		return room;
 	}
+
+	@Override
+	public String toString() {
+		return "Room [floor=" + floor + ", room=" + room + "]";
+	}
+	
+	
 }

@@ -30,4 +30,20 @@ public class MedicalRecord {
 		return description;
 	}
 
+	@Override
+	public String toString() {
+
+		return """
+				═══════════════════════════════════════
+				        MEDICAL RECORD
+				═══════════════════════════════════════
+				Protocol:     %s
+				Doctor:       %s
+				Patient:      %s
+				Description:  %s
+				═══════════════════════════════════════
+				""".formatted(protocolCode, doctor.getName(), patient.getName(), description);
+
+	}
+
 }

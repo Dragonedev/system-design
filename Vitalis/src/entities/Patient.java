@@ -41,4 +41,12 @@ public class Patient {
 		this.severityLevel = severityLevel;
 	}
 
+	@Override
+	public String toString() {
+		return "Patient [name=" + name + ", age=" + age + ", cpf=" + cpf + ", protocol=" + protocol + ", severityLevel="
+				+ severityLevel + "]";
+	}
+	
+	
+
 }

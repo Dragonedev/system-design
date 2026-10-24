@@ -11,8 +11,8 @@ public class DoctorController {
 		this.doctorService = doctorService;
 	}
 
-	public void createDoctor(Doctor doctor) {
-		doctorService.createDoctor(doctor);
+	public Doctor createDoctor(Doctor doctor) {
+		return doctorService.createDoctor(doctor);
 	}
 
 	public void findAll() {

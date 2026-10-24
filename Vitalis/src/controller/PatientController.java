@@ -12,13 +12,12 @@ public class PatientController {
 		this.patientService = patientService;
 	}
 
-	public void createPatient(Patient patient) {
-		patientService.createPatient(patient);
+	public Patient createPatient(Patient patient) {
+		return patientService.createPatient(patient);
 	}
 
 	public void evaluatePatient(String cpf, SeverityLevel severityLevel) {
 		patientService.evaluatePatient(cpf, severityLevel);
-		;
 	}
 
 	public void findAll() {

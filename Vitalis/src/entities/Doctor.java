@@ -32,4 +32,10 @@ public class Doctor {
 		return medicalTrainingLevel;
 	}
 
+	@Override
+	public String toString() {
+		return "Doctor [name=" + name + ", doctorCode=" + doctorCode + ", specialty=" + specialty
+				+ ", medicalTrainingLevel=" + medicalTrainingLevel + "]";
+	}
+
 }

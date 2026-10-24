@@ -18,4 +18,9 @@ public class Sector {
 		return code;
 	}
 
+	@Override
+	public String toString() {
+		return "Sector [name=" + name + ", code=" + code + "]";
+	}
+
 }

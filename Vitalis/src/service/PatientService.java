@@ -16,7 +16,7 @@ public class PatientService {
 		this.patientRepository = patientRepository;
 	}
 
-	public void createPatient(Patient patient) {
+	public Patient createPatient(Patient patient) {
 		if (patient == null) {
 			throw new InvalidPatientException("Patient cannot be null");
 		}
@@ -45,6 +45,7 @@ public class PatientService {
 				patient.getProtocol());
 
 		hospital.addPatient(savedPatient);
+		return savedPatient;
 	}
 
 	public void evaluatePatient(String cpf, SeverityLevel severityLevel) {

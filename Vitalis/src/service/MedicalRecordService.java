@@ -24,13 +24,13 @@ public class MedicalRecordService {
 		this.patientRepository = patientRepository;
 	}
 
-	public void createMedicalRecord(MedicalRecord medicalRecord, String doctorCode, String cpf) {
-		Doctor doctor = doctorRepository.findDoctorByDoctorCode(doctorCode);
+	public MedicalRecord createMedicalRecord(MedicalRecord medicalRecord) {
+		Doctor doctor = doctorRepository.findDoctorByDoctorCode(medicalRecord.getDoctor().getDoctorCode());
 		if (doctor == null) {
 			throw new InvalidMedicalRecordException("doctor cannot be null");
 		}
 
-		Patient patient = patientRepository.findPatientByCpf(cpf);
+		Patient patient = patientRepository.findPatientByCpf(medicalRecord.getPatient().getCpf());
 		if (patient == null) {
 			throw new InvalidMedicalRecordException("doctor cannot be null");
 		}
@@ -47,6 +47,7 @@ public class MedicalRecordService {
 				medicalRecord.getProtocolCode(), medicalRecord.getDescription());
 
 		hospital.addMedicalRecord(savedMedicalRecord);
+		return savedMedicalRecord;
 	}
 
 	public void findAll() {
